@@ -13,7 +13,7 @@ def make_tree(tree, nchan, id):
         tree.addNode(subtrees, "SUBTREE")
 
 def path_check(tname):
-    root = os.getenv("MDS_TREE_ROOT", "{}/trees".format(os.environ['MAKE_TREE']))
+    root = os.getenv("MDS_TREE_ROOT", "{}/trees".format(os.environ['HOME']))
     key = "{}_path".format(tname)
     tpath = "{}/{}".format(root, tname)
     mpath = os.getenv(key, "notfound")

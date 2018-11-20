@@ -5,8 +5,9 @@ import MDSplus
 import os
 
 def new_shot(tree):
-    MDSplus.Tree.setCurrent(tree, 1)
     MDSplus.Tree(tree, -1).createPulse(1)
+    MDSplus.Tree.setCurrent(tree, 1)
+
 
 def make_chan(tree, nchan, id):
     if nchan == 0:
