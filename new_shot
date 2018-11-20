@@ -1,0 +1,40 @@
+#!/usr/bin/python
+
+"""
+new_shot uut [uut..]
+create new MDSplus shot
+if multiple trees, find highest shot number, and set all trees to next
+"""
+
+import argparse
+import MDSplus
+
+def set_next_shot(args):
+    old_shots = [MDSplus.Tree.getCurrent(u) for u in args.uuts]
+    if args.shot != -99:
+        sn = args.shot
+        if sn <= 0:
+            sn = 1
+    else:
+        sn = max(old_shots) + 1
+        if sn <= 0:
+            sn = 1
+    for tree in args.uuts:
+        if args.verbose:
+            print("Setting %s to shot %d" % (tree, sn))
+        MDSplus.Tree.setCurrent(tree, sn)
+        MDSplus.Tree(tree, -1).createPulse(sn)
+    return sn
+
+def run_main():
+    parser = argparse.ArgumentParser(description='new_shot uut [uut..]')
+    parser.add_argument('--verbose', default=1, type=int, help='show shot number')
+    parser.add_argument('--shot', default=-99, type=int, help='specify shot number')
+    parser.add_argument('uuts', nargs='+', help="uut list")
+    set_next_shot(parser.parse_args())
+
+
+# execution starts here
+
+if __name__ == '__main__':
+    run_main()
