@@ -75,6 +75,7 @@ def run_main():
     parser.add_argument('--dio', default=-1, type=int, help='dio, words')
     parser.add_argument('--stat', default=-1, type=int, help='status, words')
     parser.add_argument('tree', nargs=+, help="tree name, ideally UUT name")
+    parser.add_argument('tag', nargs=+, help="tag name list")
     make_acqtree(parser.parse_args())
 
 
