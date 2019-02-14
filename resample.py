@@ -3,13 +3,32 @@
 import MDSplus
 import os
 import argparse
+import matplotlib.pyplot as plt
 
 def resample_show(args):
     resp_rate = args.resp[0]
 
     t = Tree("acq2106_test", 1176)
-    ip = t.getNode("")
+    mp1Node = t.getNode("")
+    mp1Data = mp1Node.record.data()
 
+    mp1Data_re = []
+
+    if resp_rate < len(mp1Data):
+        i = 0
+        while i < len(mp1Data):
+            mp1Data_re.append(mp1Data[i])
+            i += resp_rate
+
+
+
+    plt.figure(1)
+    plt.subplot(211)
+    plt.plot(mp1Data)
+
+    plt.subplot(212)
+    plt.plot(mp1Data_re)
+    plt.show()
 
 def run_main():
     parser = argparse.ArgumentParser(description="resampling")
